@@ -1,15 +1,5 @@
-import { View, Text } from 'react-native';
+import Navigator from './navigator';
 
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-	return (
-		<View>
-			<Text>Ola</Text>
-			<img src={logo} className='App-logo' alt='logo' />
-		</View>
-	);
+export default function App() {
+	return <Navigator />;
 }
-
-export default App;
