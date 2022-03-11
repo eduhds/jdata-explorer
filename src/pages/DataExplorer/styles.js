@@ -46,6 +46,7 @@ export const DataExplorerKeyRow = styled.View`
 export const DataExplorerKeyText = styled.Text`
   color: ${({ selected }) => (selected ? Colors.white : Colors.primary2)};
   margin-left: 5px;
+  margin-right: 10px;
 `;
 
 export const DataExplorerValueView = styled.View`
@@ -75,6 +76,7 @@ export const DataExplorerValueCardBody = styled.View`
 `;
 
 export const DataExplorerValueCardTitle = styled.Text`
+  flex: 1;
   color: white;
   font-size: 12px;
   font-weight: bold;
