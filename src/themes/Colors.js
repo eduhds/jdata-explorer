@@ -4,6 +4,7 @@ const Colors = {
 	primary3: '#f2ae30',
 	primary4: '#f9e4cb',
 	text: '#444444',
+	card: '#E5E5E5',
 	placeholder: '#C7C7CD',
 	inactive: '#777777',
 	success: '#28A745',
