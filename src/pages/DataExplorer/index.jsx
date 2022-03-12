@@ -32,7 +32,7 @@ export default function DataExplorer({ navigation, route }) {
 
 	return (
 		<DataExplorerContainer>
-			<ToolBar />
+			<ToolBar info={route.params.info} />
 
 			<DataExplorerContent>
 				<ScrollView horizontal>

@@ -26,7 +26,7 @@ export default function DataEntryText({ onSubmit }) {
 		}
 
 		if (jsonData) {
-			onSubmit(jsonData);
+			onSubmit(jsonData, { source: 'text', name: `${JSON.stringify(jsonData).substring(0, 20)}...` });
 			return;
 		}
 

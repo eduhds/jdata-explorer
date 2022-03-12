@@ -40,7 +40,7 @@ export default function DataEntryUrl({ onSubmit }) {
 				const jsonData = await data.json();
 
 				if (jsonData) {
-					onSubmit(jsonData);
+					onSubmit(jsonData, { source: 'url', name: value });
 				}
 			} catch (err) {
 				setError(`Falha ao carregar dados: ${err}`);

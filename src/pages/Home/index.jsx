@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Collapse } from 'react-collapse';
 import { FaFileAlt } from 'react-icons/fa';
 import { FiType } from 'react-icons/fi';
@@ -13,8 +13,8 @@ import Colors from '../../themes/Colors';
 export default function Home({ navigation }) {
 	const [optionOpened, setOptionOpened] = useState(0);
 
-	const onSubmit = data => {
-		navigation.navigate('DataExplorer', { data });
+	const onSubmit = (data, info) => {
+		navigation.navigate('DataExplorer', { data, info });
 	};
 
 	return (

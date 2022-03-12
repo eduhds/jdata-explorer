@@ -8,6 +8,7 @@ import TextError from '../../../../components/TextError';
 export default function DataEntryFile({ onSubmit }) {
 	const [value, setValue] = useState();
 	const [error, setError] = useState('');
+	const [metaData, setMetaData] = useState();
 
 	useEffect(() => {
 		if (error) {
@@ -25,7 +26,7 @@ export default function DataEntryFile({ onSubmit }) {
 		}
 
 		if (jsonData) {
-			onSubmit(jsonData);
+			onSubmit(jsonData, metaData);
 			return;
 		}
 
@@ -34,6 +35,7 @@ export default function DataEntryFile({ onSubmit }) {
 
 	const cancel = () => {
 		setValue('');
+		setMetaData(undefined);
 		document.querySelector('#file-json').value = '';
 	};
 
@@ -48,7 +50,14 @@ export default function DataEntryFile({ onSubmit }) {
 				accept='.json'
 				onChange={e => {
 					e.preventDefault();
-					e.target.files[0].text().then(setValue, err => console.log(err));
+					setMetaData({
+						source: 'file',
+						name: e.target.files[0].name
+					});
+					e.target.files[0].text().then(setValue, err => {
+						console.log(err);
+						cancel();
+					});
 				}}
 			/>
 			<TextError>{error}</TextError>
