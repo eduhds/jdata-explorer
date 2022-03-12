@@ -9,11 +9,13 @@ export const ToolBarContainer = styled.View`
 `;
 
 export const ToolBarInfoRow = styled.View`
+  flex: 1;
   flex-direction: row;
   align-items: center;
 `;
 
 export const ToolBarInfoText = styled.View`
+  flex: 1;
   font-size: 14px;
   color: ${Colors.text};
   font-style: italic;

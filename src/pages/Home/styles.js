@@ -1,15 +1,16 @@
 import styled from 'styled-components/native';
 
 import Colors from '../../themes/Colors';
+import Layout from '../../themes/Layout';
 
 export const HomeContainer = styled.View`
   flex: 1;
   justify-content: center;
-  align-items: center;
 `;
 
 export const HomeDataEntryContainer = styled.View`
-  width: 30%;
+  align-self: center;
+  width: ${Layout.selectValue({ sm: '90%', md: '80%', lg: '40%' })};
   background-color: ${Colors.primary1};
 `;
 

@@ -47,8 +47,3 @@ export default function Home({ navigation }) {
 		</HomeContainer>
 	);
 }
-
-/* 
-0-480
-480-768
-768-1280 */

@@ -30,6 +30,7 @@ export default function DataEntryUrl({ onSubmit }) {
 	const open = async () => {
 		if (value?.startsWith('https://')) {
 			setLoading(true);
+			setError('');
 			try {
 				const data = await fetch(value, {
 					method,
