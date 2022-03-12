@@ -1,50 +1,51 @@
 {
-  "name": "jdata_explorer",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@react-navigation/native": "^6.0.8",
-    "@react-navigation/native-stack": "^6.5.0",
-    "@testing-library/jest-dom": "^5.16.2",
-    "@testing-library/react": "^12.1.4",
-    "@testing-library/user-event": "^13.5.0",
-    "react": "^17.0.2",
-    "react-collapse": "^5.1.1",
-    "react-dom": "^17.0.2",
-    "react-icons": "^4.3.1",
-    "react-native-safe-area-context": "^4.1.2",
-    "react-native-screens": "^3.13.1",
-    "react-native-web": "^0.17.7",
-    "react-scripts": "5.0.0",
-    "styled-components": "^5.3.3",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "babel-plugin-module-resolver": "^4.1.0",
-    "babel-plugin-react-native-web": "^0.17.7"
-  }
+	"name": "jdata_explorer",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"@react-navigation/native": "^6.0.8",
+		"@react-navigation/native-stack": "^6.5.0",
+		"@testing-library/jest-dom": "^5.16.2",
+		"@testing-library/react": "^12.1.4",
+		"@testing-library/user-event": "^13.5.0",
+		"react": "^17.0.2",
+		"react-collapse": "^5.1.1",
+		"react-dom": "^17.0.2",
+		"react-icons": "^4.3.1",
+		"react-native-safe-area-context": "^4.1.2",
+		"react-native-screens": "^3.13.1",
+		"react-native-web": "^0.17.7",
+		"react-scripts": "5.0.0",
+		"styled-components": "^5.3.3",
+		"web-vitals": "^2.1.4"
+	},
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject",
+		"deploy": "firebase deploy"
+	},
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"devDependencies": {
+		"babel-plugin-module-resolver": "^4.1.0",
+		"babel-plugin-react-native-web": "^0.17.7"
+	}
 }
