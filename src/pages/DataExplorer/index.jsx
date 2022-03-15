@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ScrollView, TouchableOpacity } from 'react-native';
 import { FaCaretRight, FaCopy } from 'react-icons/fa';
 import { VscJson } from 'react-icons/vsc';
-import { BiBracket } from 'react-icons/bi';
+import { BiBracket, BiSearch } from 'react-icons/bi';
 import { FiType } from 'react-icons/fi';
 import { AiOutlineNumber } from 'react-icons/ai';
 import { RiCheckboxMultipleFill } from 'react-icons/ri';
@@ -23,7 +23,12 @@ import {
 	DataExplorerValueCardHeader,
 	DataExplorerValueCardTitle,
 	DataExplorerValueCardBody,
-	DataExplorerKeyRow
+	DataExplorerKeyRow,
+	DataExplorerColInputSearch,
+	DataExplorerColHeader,
+	DataExplorerColCountText,
+	DataExplorerObjEmptyView,
+	DataExplorerObjEmptyText
 } from './styles';
 import Colors from '../../themes/Colors';
 
@@ -47,12 +52,27 @@ export default function DataExplorer({ navigation, route }) {
 
 function RenderData({ obj }) {
 	const [visible, setVisible] = useState(undefined);
+	const [searchKey, setSearchKey] = useState('');
+
+	const keys = Object.keys(obj).filter(k => (searchKey ? k.search(new RegExp(searchKey, 'i')) !== -1 : true));
+
+	useEffect(() => {
+		if (visible) setVisible(undefined);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [searchKey]);
 
 	return (
 		<DataExplorerRow>
 			<DataExplorerCol>
+				<DataExplorerColHeader>
+					<BiSearch style={{ fontSize: 14, color: Colors.primary3 }} />
+					<DataExplorerColInputSearch value={searchKey} onChangeText={setSearchKey} />
+				</DataExplorerColHeader>
+
+				<DataExplorerColCountText>{keys.length} itens</DataExplorerColCountText>
+
 				<ScrollView>
-					{Object.keys(obj).map((key, index) => (
+					{keys.map((key, index) => (
 						<DataExplorerKeyView
 							key={`key-${key}-${index}`}
 							selected={key === visible}
@@ -79,7 +99,20 @@ function RenderData({ obj }) {
 						.map(([, v]) => v)
 						.map(value => {
 							if (value !== null && value !== undefined && typeof value === 'object') {
-								console.log('aqui 1');
+								if (Object.keys(value).length === 0) {
+									return (
+										<DataExplorerValueView>
+											<DataExplorerObjEmptyView>
+												{Array.isArray(value) ? (
+													<BiBracket style={{ color: Colors.primary1, fontSize: 30 }} />
+												) : (
+													<VscJson style={{ color: Colors.primary1, fontSize: 30 }} />
+												)}
+												<DataExplorerObjEmptyText>{typeof value} vazio</DataExplorerObjEmptyText>
+											</DataExplorerObjEmptyView>
+										</DataExplorerValueView>
+									);
+								}
 								return (
 									<DataExplorerValueView>
 										<RenderData obj={value} />

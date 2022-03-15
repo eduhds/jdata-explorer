@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+
 import Colors from '../../themes/Colors';
 
 export const DataExplorerContainer = styled.View`
@@ -89,4 +90,39 @@ export const DataExplorerValueCardTitle = styled.Text`
 export const DataExplorerValueText = styled.Text`
   font-size: 14px;
   color: ${Colors.text};
+`;
+
+export const DataExplorerColHeader = styled.View`
+  flex-direction: row;
+  height: 25px;
+  align-items: center;
+  padding: 4px;
+  margin-bottom: 2px;
+`;
+
+export const DataExplorerColInputSearch = styled.TextInput`
+  flex: 1;
+  border-bottom-width: 0.2px;
+  border-bottom-color: ${Colors.primary3};
+  color: ${Colors.primary2};
+  margin-left: 4px;
+`;
+
+export const DataExplorerColCountText = styled.Text`
+  color: ${Colors.text};
+  margin-bottom: 5px;
+  margin-left: 5px;
+  font-size: 10px;
+  font-style: italic;
+`;
+
+export const DataExplorerObjEmptyView = styled.View`
+  margin-left: 10px;
+  align-items: center;
+`;
+
+export const DataExplorerObjEmptyText = styled.Text`
+  color: ${Colors.primary1};
+  font-size: 14px;
+  font-style: italic;
 `;
