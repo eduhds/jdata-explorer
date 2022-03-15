@@ -29,7 +29,7 @@ export default function Home({ navigation }) {
 				</Collapse>
 
 				<HomeDataEntryHeader onPress={() => setOptionOpened(1)}>
-					<HomeDataEntryTitle>File</HomeDataEntryTitle>
+					<HomeDataEntryTitle>Arquivo JSON</HomeDataEntryTitle>
 					<FaFileAlt style={{ color: Colors.white }} />
 				</HomeDataEntryHeader>
 				<Collapse isOpened={optionOpened === 1}>
@@ -37,7 +37,7 @@ export default function Home({ navigation }) {
 				</Collapse>
 
 				<HomeDataEntryHeader onPress={() => setOptionOpened(2)}>
-					<HomeDataEntryTitle>Url</HomeDataEntryTitle>
+					<HomeDataEntryTitle>URL de API/Servidor</HomeDataEntryTitle>
 					<BsServer style={{ color: Colors.white }} />
 				</HomeDataEntryHeader>
 				<Collapse isOpened={optionOpened === 2}>

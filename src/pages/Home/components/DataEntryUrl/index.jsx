@@ -61,7 +61,7 @@ export default function DataEntryUrl({ onSubmit }) {
 	return (
 		<DataEntryUrlContainer>
 			<DataEntryUrlTitle>
-				Insira uma URL de servidor/API que responde dados em JSON (não deve haver restrições de acesso/autenticação, a
+				Insira uma URL pública de servidor/API que responde JSON (não deve haver restrições de acesso/autenticação, a
 				conexão deve ser HTTPS)
 			</DataEntryUrlTitle>
 
