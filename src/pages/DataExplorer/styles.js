@@ -61,6 +61,9 @@ export const DataExplorerValueCard = styled.View`
   border-color: ${Colors.primary1};
   margin-left: 5px;
   margin-right: 5px;
+  margin-bottom: 15px;
+  max-width: 600px;
+  max-height: 400px;
 `;
 
 export const DataExplorerValueCardHeader = styled.View`

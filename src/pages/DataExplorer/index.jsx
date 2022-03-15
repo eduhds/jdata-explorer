@@ -89,23 +89,29 @@ function RenderData({ obj }) {
 
 							return (
 								<DataExplorerValueView>
-									<DataExplorerValueCard>
-										<DataExplorerValueCardHeader>
-											<DataExplorerValueCardTitle>{value === null ? 'null' : typeof value}</DataExplorerValueCardTitle>
-											<TouchableOpacity
-												onPress={() => {
-													navigator.clipboard.writeText(value).then(
-														() => alert('Valor copiado para a área de transferência!'),
-														err => console.log(err)
-													);
-												}}>
-												<FaCopy style={{ fontSize: 14, color: Colors.primary2 }} />
-											</TouchableOpacity>
-										</DataExplorerValueCardHeader>
-										<DataExplorerValueCardBody>
-											<RenderValue value={value} />
-										</DataExplorerValueCardBody>
-									</DataExplorerValueCard>
+									<ScrollView>
+										<DataExplorerValueCard>
+											<DataExplorerValueCardHeader>
+												<DataExplorerValueCardTitle>
+													{value === null ? 'null' : typeof value}
+												</DataExplorerValueCardTitle>
+												<TouchableOpacity
+													onPress={() => {
+														navigator.clipboard.writeText(value).then(
+															() => alert('Valor copiado para a área de transferência!'),
+															err => console.log(err)
+														);
+													}}>
+													<FaCopy style={{ fontSize: 14, color: Colors.primary2 }} />
+												</TouchableOpacity>
+											</DataExplorerValueCardHeader>
+											<ScrollView>
+												<DataExplorerValueCardBody>
+													<RenderValue value={value} />
+												</DataExplorerValueCardBody>
+											</ScrollView>
+										</DataExplorerValueCard>
+									</ScrollView>
 								</DataExplorerValueView>
 							);
 						})}
