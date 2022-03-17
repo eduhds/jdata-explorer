@@ -98,14 +98,14 @@ export const DataExplorerColHeader = styled.View`
   align-items: center;
   padding: 4px;
   margin-bottom: 2px;
+  border-bottom-width: 0.2px;
+  border-bottom-color: ${Colors.primary3};
 `;
 
 export const DataExplorerColInputSearch = styled.TextInput`
   flex: 1;
-  border-bottom-width: 0.2px;
-  border-bottom-color: ${Colors.primary3};
   color: ${Colors.primary2};
-  margin-left: 4px;
+  padding-left: 4px;
 `;
 
 export const DataExplorerColCountText = styled.Text`

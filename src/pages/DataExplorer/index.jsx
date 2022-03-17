@@ -7,6 +7,7 @@ import { FiType } from 'react-icons/fi';
 import { AiOutlineNumber } from 'react-icons/ai';
 import { RiCheckboxMultipleFill } from 'react-icons/ri';
 import { IoRemoveCircleOutline } from 'react-icons/io5';
+import { IoIosCloseCircle } from 'react-icons/io';
 
 import ToolBar from './components/ToolBar';
 import {
@@ -67,9 +68,17 @@ function RenderData({ obj }) {
 				<DataExplorerColHeader>
 					<BiSearch style={{ fontSize: 14, color: Colors.primary3 }} />
 					<DataExplorerColInputSearch value={searchKey} onChangeText={setSearchKey} />
+					{searchKey !== '' && (
+						<TouchableOpacity onPress={() => setSearchKey('')}>
+							<IoIosCloseCircle style={{ fontSize: 14, color: Colors.danger }} />
+						</TouchableOpacity>
+					)}
 				</DataExplorerColHeader>
 
-				<DataExplorerColCountText>{keys.length} itens</DataExplorerColCountText>
+				<DataExplorerColCountText>
+					{keys.length || ''}
+					{keys.length === 0 ? 'Nenhum item' : keys.length === 1 ? ' item' : ' itens'}
+				</DataExplorerColCountText>
 
 				<ScrollView>
 					{keys.map((key, index) => (
@@ -128,15 +137,17 @@ function RenderData({ obj }) {
 												<DataExplorerValueCardTitle>
 													{value === null ? 'null' : typeof value}
 												</DataExplorerValueCardTitle>
-												<TouchableOpacity
-													onPress={() => {
-														navigator.clipboard.writeText(value).then(
-															() => alert('Valor copiado para a área de transferência!'),
-															err => console.log(err)
-														);
-													}}>
-													<FaCopy style={{ fontSize: 14, color: Colors.primary2 }} />
-												</TouchableOpacity>
+												{value !== '' && (
+													<TouchableOpacity
+														onPress={() => {
+															navigator.clipboard.writeText(value).then(
+																() => alert('Valor copiado para a área de transferência!'),
+																err => console.log(err)
+															);
+														}}>
+														<FaCopy style={{ fontSize: 14, color: Colors.primary2 }} />
+													</TouchableOpacity>
+												)}
 											</DataExplorerValueCardHeader>
 											<ScrollView>
 												<DataExplorerValueCardBody>
