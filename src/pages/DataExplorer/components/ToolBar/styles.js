@@ -14,7 +14,7 @@ export const ToolBarInfoRow = styled.View`
   align-items: center;
 `;
 
-export const ToolBarInfoText = styled.View`
+export const ToolBarInfoText = styled.Text`
   flex: 1;
   font-size: 14px;
   color: ${Colors.text};

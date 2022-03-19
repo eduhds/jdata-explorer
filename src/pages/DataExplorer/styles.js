@@ -126,3 +126,18 @@ export const DataExplorerObjEmptyText = styled.Text`
   font-size: 14px;
   font-style: italic;
 `;
+
+export const DataExplorerEditValueText = styled.TextInput`
+  flex: 1;
+  min-height: 200px;
+  min-width: 400px;
+`;
+
+export const DataExplorerEditValueRow = styled.View`
+  flex-direction: row;
+  justify-content: flex-end;
+  border-top-width: 1px;
+  border-top-color: ${Colors.primary1};
+  padding-top: 2px;
+  margin-top: 4px;
+`;
