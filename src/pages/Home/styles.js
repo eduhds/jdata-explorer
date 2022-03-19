@@ -17,7 +17,6 @@ export const HomeDataEntryContainer = styled.View`
 export const HomeDataEntryHeader = styled.TouchableOpacity`
   padding: 15px;
   align-items: center;
-  justify-content: space-between;
   flex-direction: row;
   border-bottom-width: 2px;
   border-bottom-color: ${Colors.primary3};
@@ -26,4 +25,5 @@ export const HomeDataEntryHeader = styled.TouchableOpacity`
 export const HomeDataEntryTitle = styled.Text`
   color: ${Colors.white};
   font-size: 16px;
+  flex: 1;
 `;
