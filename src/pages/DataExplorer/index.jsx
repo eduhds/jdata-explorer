@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ScrollView, TouchableOpacity, Button, View } from 'react-native';
 import { FaCaretRight, FaCopy } from 'react-icons/fa';
 import { VscJson } from 'react-icons/vsc';
-import { BiBracket, BiSearch } from 'react-icons/bi';
-import { FiType } from 'react-icons/fi';
-import { AiOutlineNumber } from 'react-icons/ai';
-import { RiCheckboxMultipleFill, RiFileEditFill } from 'react-icons/ri';
-import { IoRemoveCircleOutline } from 'react-icons/io5';
+import { BiBracket, BiSearch, BiTable } from 'react-icons/bi';
+import { RiFileEditFill } from 'react-icons/ri';
 import { IoIosCloseCircle } from 'react-icons/io';
+import { BsListNested } from 'react-icons/bs';
 
 import ToolBar from './components/ToolBar';
 import {
@@ -31,11 +29,25 @@ import {
 	DataExplorerObjEmptyView,
 	DataExplorerObjEmptyText,
 	DataExplorerEditValueText,
-	DataExplorerEditValueRow
+	DataExplorerEditValueRow,
+	DataExplorerColHeaderSearchRow,
+	ObjAsTableContainer,
+	ObjAsTableHeader,
+	ObjAsTableTitle,
+	ObjAsTableBody,
+	ObjAsTableCelKey,
+	ObjAsTableCelKeyText,
+	ObjAsTableCelValue,
+	ObjAsTableCelValueText,
+	ObjAsTableCelKeyRow
 } from './styles';
 import Colors from '../../themes/Colors';
+import JDExMethods from '../../helpers/JDExMethods';
+import ArrayAsTable from './components/ArrayAsTable';
+import RenderTypeIcon from './components/RenderTypeIcon';
 
 export default function DataExplorer({ navigation, route }) {
+	const mainContainerRef = useRef();
 	const [data, setData] = useState(route.params.data);
 	const [changes, setChanges] = useState([]);
 
@@ -97,7 +109,7 @@ export default function DataExplorer({ navigation, route }) {
 			/>
 
 			<DataExplorerContent>
-				<ScrollView horizontal>
+				<ScrollView horizontal ref={mainContainerRef}>
 					<DataExplorerTable>
 						<RenderData obj={data} updateData={updateData} />
 					</DataExplorerTable>
@@ -111,66 +123,108 @@ function RenderData({ obj, path = '', updateData }) {
 	const [visible, setVisible] = useState(undefined);
 	const [searchKey, setSearchKey] = useState('');
 	const [editValue, setEditValue] = useState(undefined);
+	const [viewAsTable, setViewAsTable] = useState(false);
 
 	const keys = Object.keys(obj).filter(k => (searchKey ? k.search(new RegExp(searchKey, 'i')) !== -1 : true));
+	const isRegularObj = JDExMethods.isRegularObject(obj);
+	const isRegularArray = JDExMethods.isRegularObjectArray(obj);
 
 	useEffect(() => {
 		if (visible) setVisible(undefined);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [searchKey]);
+	}, [searchKey, viewAsTable]);
 
 	return (
 		<DataExplorerRow>
+			{/* KEYS */}
 			<DataExplorerCol>
 				<DataExplorerColHeader>
-					<BiSearch style={{ fontSize: 14, color: Colors.primary3 }} />
-					<DataExplorerColInputSearch value={searchKey} onChangeText={setSearchKey} />
-					{searchKey !== '' && (
-						<TouchableOpacity onPress={() => setSearchKey('')}>
-							<IoIosCloseCircle style={{ fontSize: 14, color: Colors.danger }} />
+					<DataExplorerColHeaderSearchRow inactive={viewAsTable}>
+						<BiSearch style={{ fontSize: 14, color: viewAsTable ? Colors.inactive : Colors.primary3 }} />
+						<DataExplorerColInputSearch editable={!viewAsTable} value={searchKey} onChangeText={setSearchKey} />
+						{searchKey !== '' && (
+							<TouchableOpacity onPress={() => setSearchKey('')}>
+								<IoIosCloseCircle style={{ fontSize: 14, color: Colors.danger }} />
+							</TouchableOpacity>
+						)}
+					</DataExplorerColHeaderSearchRow>
+					{(isRegularObj || isRegularArray) && (
+						<TouchableOpacity onPress={() => setViewAsTable(!viewAsTable)}>
+							{viewAsTable ? (
+								<BsListNested style={{ fontSize: 16, color: Colors.primary2 }} />
+							) : (
+								<BiTable style={{ fontSize: 16, color: Colors.primary2 }} />
+							)}
 						</TouchableOpacity>
 					)}
 				</DataExplorerColHeader>
 
-				<DataExplorerColCountText>
-					{keys.length || ''}
-					{keys.length === 0 ? 'Nenhum item' : keys.length === 1 ? ' item' : ' itens'}
-				</DataExplorerColCountText>
+				{!viewAsTable && (
+					<DataExplorerColCountText>
+						{keys.length || ''}
+						{keys.length === 0 ? 'Nenhum item' : keys.length === 1 ? ' item' : ' itens'}
+					</DataExplorerColCountText>
+				)}
 
 				<ScrollView>
-					{keys.map((key, index) => (
-						<DataExplorerKeyView
-							key={`key-${key}-${index}`}
-							selected={key === visible}
-							onPress={() => {
-								if (!visible) setVisible(key);
-								else if (visible !== key) setVisible(key);
-								else setVisible(undefined);
-								if (editValue) setEditValue(undefined);
-							}}>
-							<DataExplorerKeyRow>
-								<RenderIcon value={obj[key]} selected={key === visible} />
-								<DataExplorerKeyText selected={key === visible}>{key}</DataExplorerKeyText>
-							</DataExplorerKeyRow>
+					{!viewAsTable &&
+						keys.map((key, index) => (
+							<DataExplorerKeyView
+								key={`dataexplorer-key-${key}-${index}`}
+								selected={key === visible}
+								onPress={() => {
+									if (!visible) setVisible(key);
+									else if (visible !== key) setVisible(key);
+									else setVisible(undefined);
+									if (editValue) setEditValue(undefined);
+									if (viewAsTable) setViewAsTable(false);
+								}}>
+								<DataExplorerKeyRow>
+									<RenderTypeIcon value={obj[key]} selected={key === visible} />
+									<DataExplorerKeyText selected={key === visible}>{key}</DataExplorerKeyText>
+								</DataExplorerKeyRow>
 
-							<FaCaretRight style={{ color: key === visible ? Colors.white : Colors.primary2 }} />
-						</DataExplorerKeyView>
-					))}
+								<FaCaretRight style={{ color: key === visible ? Colors.white : Colors.primary2 }} />
+							</DataExplorerKeyView>
+						))}
+
+					{viewAsTable && (
+						<>
+							{isRegularArray ? (
+								<ArrayAsTable
+									array={obj}
+									title={(() => {
+										const _path = path.slice(1, path.length - 1).split('][');
+										return _path[_path.length - 1];
+									})()}
+								/>
+							) : (
+								<ObjAsTable
+									obj={obj}
+									title={(() => {
+										const _path = path.slice(1, path.length - 1).split('][');
+										return _path[_path.length - 1];
+									})()}
+								/>
+							)}
+						</>
+					)}
 				</ScrollView>
 			</DataExplorerCol>
 
+			{/* VALUES */}
 			{visible && (
 				<DataExplorerCol>
 					{Object.entries(obj)
 						.filter(([k]) => k === visible)
 						.map(([, v]) => v)
-						.map(value => {
+						.map((value, index) => {
 							const valuePath = `${path}[${visible}]`;
 
 							if (value !== null && value !== undefined && typeof value === 'object') {
 								if (Object.keys(value).length === 0) {
 									return (
-										<DataExplorerValueView>
+										<DataExplorerValueView key={`dataexplorer-value-${index}`}>
 											<DataExplorerObjEmptyView>
 												{Array.isArray(value) ? (
 													<BiBracket style={{ color: Colors.primary1, fontSize: 30 }} />
@@ -183,14 +237,14 @@ function RenderData({ obj, path = '', updateData }) {
 									);
 								}
 								return (
-									<DataExplorerValueView>
+									<DataExplorerValueView key={`dataexplorer-value-${index}`}>
 										<RenderData obj={value} path={valuePath} updateData={updateData} />
 									</DataExplorerValueView>
 								);
 							}
 
 							return (
-								<DataExplorerValueView>
+								<DataExplorerValueView key={`dataexplorer-value-${index}`}>
 									<ScrollView>
 										<DataExplorerValueCard>
 											<DataExplorerValueCardHeader>
@@ -246,27 +300,6 @@ function RenderData({ obj, path = '', updateData }) {
 	);
 }
 
-function RenderIcon({ value, selected }) {
-	const style = { fontSize: 14, color: selected ? Colors.white : Colors.primary2 };
-
-	switch (true) {
-		case value === null || value === undefined:
-			return <IoRemoveCircleOutline style={style} />;
-		case Array.isArray(value):
-			return <BiBracket style={style} />;
-		case typeof value === 'object':
-			return <VscJson style={style} />;
-		case typeof value === 'string':
-			return <FiType style={style} />;
-		case typeof value === 'number':
-			return <AiOutlineNumber style={style} />;
-		case typeof value === 'boolean':
-			return <RiCheckboxMultipleFill style={style} />;
-		default:
-			return null;
-	}
-}
-
 function RenderValue({ value }) {
 	if (String(value).startsWith('http://') || String(value).startsWith('https://')) {
 		return (
@@ -303,4 +336,33 @@ function RenderEditValue({ value, onCancel, onSave }) {
 	}
 
 	return <DataExplorerValueText>{String(value)}</DataExplorerValueText>;
+}
+
+function ObjAsTable({ obj, title }) {
+	return (
+		<ObjAsTableContainer>
+			<ObjAsTableHeader>
+				<tr>
+					<th colSpan={2}>
+						<ObjAsTableTitle>{title}</ObjAsTableTitle>
+					</th>
+				</tr>
+			</ObjAsTableHeader>
+			<ObjAsTableBody>
+				{Object.entries(obj).map(([key, value]) => (
+					<tr key={`objastable-tr-${key}`}>
+						<ObjAsTableCelKey>
+							<ObjAsTableCelKeyRow>
+								<RenderTypeIcon value={value} color={Colors.primary2} size={12} />
+								<ObjAsTableCelKeyText>{key}</ObjAsTableCelKeyText>
+							</ObjAsTableCelKeyRow>
+						</ObjAsTableCelKey>
+						<ObjAsTableCelValue>
+							<ObjAsTableCelValueText>{String(value)}</ObjAsTableCelValueText>
+						</ObjAsTableCelValue>
+					</tr>
+				))}
+			</ObjAsTableBody>
+		</ObjAsTableContainer>
+	);
 }

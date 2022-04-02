@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import _styled from 'styled-components';
 
 import Colors from '../../themes/Colors';
 
@@ -94,12 +95,18 @@ export const DataExplorerValueText = styled.Text`
 
 export const DataExplorerColHeader = styled.View`
   flex-direction: row;
+  align-items: center;
+  margin-bottom: 2px;
+`;
+
+export const DataExplorerColHeaderSearchRow = styled.View`
+  flex: 1;
+  flex-direction: row;
   height: 25px;
   align-items: center;
   padding: 4px;
-  margin-bottom: 2px;
   border-bottom-width: 0.2px;
-  border-bottom-color: ${Colors.primary3};
+  border-bottom-color: ${({ inactive }) => (inactive ? Colors.inactive : Colors.primary3)};
 `;
 
 export const DataExplorerColInputSearch = styled.TextInput`
@@ -140,4 +147,61 @@ export const DataExplorerEditValueRow = styled.View`
   border-top-color: ${Colors.primary1};
   padding-top: 2px;
   margin-top: 4px;
+`;
+
+export const ObjAsTableContainer = _styled.table`
+  margin: 4px;
+  border: 1px solid ${Colors.primary2};
+  border-radius: 4px;
+  max-width: 600px;
+  border-spacing: 0px;
+`;
+
+export const ObjAsTableHeader = _styled.thead`
+  background-color: ${Colors.primary2};
+`;
+
+export const ObjAsTableTitle = styled.Text`
+  font-size: 14px;
+  color: white;
+  font-weight: bold;
+  margin: 4px;
+`;
+
+export const ObjAsTableBody = _styled.tbody`
+`;
+
+export const ObjAsTableCelKeyRow = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const ObjAsTableCelKey = _styled.td`
+  background-color: ${Colors.primary4};
+  padding: 5px;
+  border-bottom-width: 0.5px;
+  border-bottom-color: ${Colors.primary2};
+  border-bottom-style: solid;
+  border-right-width: 0.5px;
+  border-right-style: solid;
+  border-right-color: ${Colors.primary3};
+`;
+
+export const ObjAsTableCelKeyText = styled.Text`
+  flex: 1;
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 2px;
+`;
+
+export const ObjAsTableCelValue = _styled.td`
+  background-color: ${Colors.card};
+  padding: 5px;
+  border-bottom-width: 0.5px;
+  border-bottom-style: solid;
+  border-bottom-color: ${Colors.primary2};
+`;
+
+export const ObjAsTableCelValueText = styled.Text`
+  font-size: 12px;
 `;
