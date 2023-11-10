@@ -1,7 +1,8 @@
 {
-	"name": "jdata_explorer",
-	"version": "0.1.0",
+	"name": "jdata-explorer",
+	"version": "0.1.1",
 	"private": true,
+	"homepage": "/jdata-explorer",
 	"dependencies": {
 		"@react-navigation/native": "^6.0.8",
 		"@react-navigation/native-stack": "^6.5.0",
@@ -21,7 +22,7 @@
 	},
 	"scripts": {
 		"start": "react-scripts start",
-		"build": "react-scripts build",
+		"build": "BUILD_PATH=./docs react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"deploy": "firebase deploy"
